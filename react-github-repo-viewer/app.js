@@ -1,7 +1,7 @@
 var HelloComponent = React.createClass({
     render: function() {
-        return React.createElement('h1', null, 'Hello, world!');
+        return <h1>Hello Visible Alpha!</h1>;
     }
 });
 
-ReactDOM.render(React.createElement(HelloComponent, null), document.getElementById('mount'));
+ReactDOM.render(<HelloComponent />, document.getElementById('mount'));
