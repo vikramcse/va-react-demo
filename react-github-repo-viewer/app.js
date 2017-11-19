@@ -9,22 +9,14 @@ var Button = React.createClass({
 });
 
 var ItemList = React.createClass({
-    getInitialState: function() {
-        return {
-            data: ["vikram", "jadhav", "visible alpha"]
-        }
-    },
-
     render: function() {
         var items = [];
-        for (var i = 0; i < this.state.data.length; i++) {
-            items.push(<li key={i}>{this.state.data[i]}</li>)
+        for (var i = 0; i < this.props.data.length; i++) {
+            items.push(<li key={i}>{this.props.data[i]}</li>)
         }
 
         return (
-            <ul>
-                {items}
-            </ul>
+            <ul>{items}</ul>
         );
     }
 });
@@ -32,22 +24,44 @@ var ItemList = React.createClass({
 var Main = React.createClass({
     getInitialState: function() {
         return {
-            text: ""
+            data: [],
+            fetching: false
         }
     },
+
     handleChange: function() {
         var username = this.refs.search.value;
+
         this.setState({
-            text: username
+            fetching: true
         });
+
+        var githubAPI = "https://api.github.com/users/";
+        var url = githubAPI + username + "/repos";
+
+        fetch(url, { 'method': "GET" })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            var repos = [];
+            data.forEach(function(element) {
+                repos.push(element["name"]);
+            });
+
+            this.setState({
+                data: repos,
+                fetching: false
+            });
+        }.bind(this));
     },
+
     render: function() {
         return (
             <div>
-                Enter username <input type="text" ref="search" placeholder="Enter username"/> &nbsp;
+                <input type="text" ref="search" placeholder="Enter username"/> &nbsp;
                 <Button handleButtonClick={this.handleChange} buttonText="search username"/>
-                <div ref="displayArea">My name is {this.state.text}</div>
-                <ItemList />
+                {this.state.fetching ? <h3>Fetching data from github</h3> : <ItemList data={this.state.data}/>}
             </div>
         );
     }
