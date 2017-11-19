@@ -8,6 +8,27 @@ var Button = React.createClass({
     }
 });
 
+var ItemList = React.createClass({
+    getInitialState: function() {
+        return {
+            data: ["vikram", "jadhav", "visible alpha"]
+        }
+    },
+
+    render: function() {
+        var items = [];
+        for (var i = 0; i < this.state.data.length; i++) {
+            items.push(<li key={i}>{this.state.data[i]}</li>)
+        }
+
+        return (
+            <ul>
+                {items}
+            </ul>
+        );
+    }
+});
+
 var Main = React.createClass({
     getInitialState: function() {
         return {
@@ -26,6 +47,7 @@ var Main = React.createClass({
                 Enter username <input type="text" ref="search" placeholder="Enter username"/> &nbsp;
                 <Button handleButtonClick={this.handleChange} buttonText="search username"/>
                 <div ref="displayArea">My name is {this.state.text}</div>
+                <ItemList />
             </div>
         );
     }
