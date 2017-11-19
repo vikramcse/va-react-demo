@@ -18,6 +18,20 @@ var Counter = React.createClass({
         }
     },
 
+    // invoked once and immediately before
+    // the initial rendering occurs
+
+    // calling setState will not trigger re-render
+    componentWillMount: function() {
+        console.log("componentWillMount called");
+    },
+
+    // invoked once and immediately after React
+    // inserts the component into the DOM
+    componentDidMount: function() {
+        console.log("componentWillMount called");
+    },
+
     handleIncrement: function() {
         var incCount = this.state.count + 1;
         this.setState({
