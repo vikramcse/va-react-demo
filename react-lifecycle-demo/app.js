@@ -1,4 +1,5 @@
 var Counter = React.createClass({
+    // The getDefaultProps() method is called once
     getDefaultProps: function() {
         console.log('getDefaultProps called');
 
@@ -7,6 +8,8 @@ var Counter = React.createClass({
         }
     },
 
+    // The getInitialState() method is also invoked once,
+    // right before the mounting phase.
     getInitialState: function() {
         console.log("getInitialState called");
 
