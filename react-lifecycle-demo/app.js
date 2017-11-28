@@ -29,7 +29,7 @@ var Counter = React.createClass({
     // invoked once and immediately after React
     // inserts the component into the DOM
     componentDidMount: function() {
-        console.log("componentWillMount called");
+        console.log("componentDidMount called");
     },
 
     handleIncrement: function() {
